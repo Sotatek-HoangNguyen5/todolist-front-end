@@ -5,10 +5,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import { useAppSelector, useAppDispatch } from '../store/hooks';
-import { userActions } from 'src/store/store';
+import { useAppDispatch } from '../../store/hooks';
+import { signout } from 'src/store/user/user';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -28,8 +26,8 @@ export default function ButtonAppBar() {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const handleOnClick = (event: React.SyntheticEvent<EventTarget>) => {
-    dispatch(userActions.signout());
+  const handleOnClick = () => {
+    dispatch(signout());
     history.push('/signin');
   };
 

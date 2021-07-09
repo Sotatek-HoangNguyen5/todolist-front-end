@@ -1,8 +1,8 @@
-const LANDING = '/landing';
+const SIGNUP = '/signup';
+const SIGNIN = '/signin';
 const DASHBOARD = '/';
-const REGISTER = '/register';
 export default {
-  LANDING,
+  SIGNUP,
+  SIGNIN,
   DASHBOARD,
-  REGISTER,
 };

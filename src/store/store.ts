@@ -1,55 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { createSlice } from '@reduxjs/toolkit';
-import { Todo } from 'src/pages/todoPage/TodoPage';
-
-const userSlice = createSlice({
-  name: 'user',
-  initialState: {
-    isLoginedIn: false,
-    jwt: '',
-  },
-  reducers: {
-    signined(state, action) {
-      state.isLoginedIn = true;
-      state.jwt = action.payload;
-    },
-    signout(state) {
-      state.isLoginedIn = false;
-      state.jwt = '';
-    },
-  },
-});
-
-const todoSlice = createSlice({
-  name: 'todo',
-  initialState: {
-    todos: [],
-    todoNum: 0,
-  },
-  reducers: {
-    addTodo(state, action) {
-      state.todos = action.payload;
-      state.todoNum += 1;
-    },
-    deleteTodo(state, action) {
-      state.todos = action.payload;
-      state.todoNum -= 1;
-    },
-    updateTodo(state, action) {
-      state.todos = action.payload;
-    },
-  },
-});
+import todoListReducer from './todoList/todoList';
+import userReducer from './user/user';
 
 const store = configureStore({
   reducer: {
-    user: userSlice.reducer,
-    todo: todoSlice.reducer,
+    user: userReducer,
+    todoList: todoListReducer,
   },
 });
-
-export const userActions = userSlice.actions;
-export const todoActions = todoSlice.actions;
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>;

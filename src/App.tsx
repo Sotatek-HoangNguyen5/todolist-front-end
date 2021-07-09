@@ -1,40 +1,26 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useAppSelector, useAppDispatch } from './store/hooks';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
 import '@fontsource/roboto';
+import { Router } from 'react-router-dom';
+import { createBrowserHistory } from 'history';
+import { Route, Switch } from 'react-router-dom';
+import routers from './routes/routes';
 import './styles/_app.scss';
-import SignUpPage, { SignUpFrom } from './pages/signUpPage/SignUpPage';
-import SignInPage from './pages/signInPage';
-import TodoPage from './pages/todoPage';
+
+const browserHistory = createBrowserHistory();
 
 const App: React.FC<any> = () => {
-  const [page, setPage] = useState();
-  const isLogedIn = useAppSelector((state) => state.user.isLoginedIn);
-
-  let todoPage = <Fragment></Fragment>;
-  if (isLogedIn) todoPage = <TodoPage />;
-
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route exact path="/signup">
-          <SignUpPage />
-        </Route>
-        <Route exact path="/signin">
-          <SignInPage />
-        </Route>
-        <Route exact path="/todo-list">
-          {!useAppSelector((state) => state.user.isLoginedIn) && (
-            <Redirect to="/signin" />
-          )}
-          {todoPage}
-        </Route>
-        <Route path="/*">
-          <Redirect to="/signin" />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Router history={browserHistory}>
+      <React.Suspense fallback={<div>....Loading</div>}>
+        <Switch>
+          {Object.keys(routers).map((key) => {
+            //@ts-ignore
+            const route = routers[key];
+            return <Route key={route.path} {...route} />;
+          })}
+        </Switch>
+      </React.Suspense>
+    </Router>
   );
 };
 

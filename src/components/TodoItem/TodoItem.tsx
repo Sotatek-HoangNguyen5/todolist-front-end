@@ -1,10 +1,12 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import DelUptButton from './DoneDelUptButton';
 import TodoInfoCard from './TodoInfoCard';
-import { Todo } from 'src/pages/todoPage/TodoPage';
+import { Todo } from 'src/interfaces/todo';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -36,9 +38,13 @@ export default function TodoItem(props: TodoItemProps) {
     <div className={classes.root}>
       <Grid container spacing={3}>
         <Grid item xs={4}>
-          <Paper className={classes.paper} style={{ textAlign: 'left' }}>
-            {props.todo.title}
-          </Paper>
+          <Card>
+            <CardContent>
+              <Typography color="textSecondary" gutterBottom>
+                {props.todo.title}
+              </Typography>
+            </CardContent>
+          </Card>
         </Grid>
         <Grid item xs>
           <TodoInfoCard todo={props.todo} />

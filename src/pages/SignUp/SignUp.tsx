@@ -7,13 +7,13 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useState, useRef } from 'react';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { routeConstants } from 'src/constants';
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -51,7 +51,7 @@ interface SignupForm {
   password: string;
 }
 
-const SignUpPage: React.FC = () =>
+const SignUp: React.FC = () =>
   // signUpPageProps: SignUpPageProps,
   {
     const history = useHistory();
@@ -60,7 +60,6 @@ const SignUpPage: React.FC = () =>
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [signedUp, setSignedUp] = useState(false);
 
     const onEnteredEmail = (event: React.SyntheticEvent<EventTarget>) => {
       setEmail((event.target as HTMLTextAreaElement).value);
@@ -71,13 +70,16 @@ const SignUpPage: React.FC = () =>
     };
 
     const signup = async (signupObject: SignupForm): Promise<boolean> => {
-      const response = await fetch('http://127.0.0.1:5000/auth/signup', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        `${process.env.REACT_APP_BASE_URL}auth/signup`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(signupObject),
         },
-        body: JSON.stringify(signupObject),
-      });
+      );
 
       return response.ok;
     };
@@ -89,13 +91,12 @@ const SignUpPage: React.FC = () =>
       const signedUp = await signup(signupObject);
 
       if (signedUp) {
-        history.push('/signin');
+        history.push(routeConstants.SIGNIN);
       }
     };
 
     return (
       <Container component="main" maxWidth="xs">
-        {signedUp === true && <Redirect to="/signin" />}
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar className={classes.avatar}>
@@ -174,7 +175,7 @@ const SignUpPage: React.FC = () =>
             </Button>
             <Grid container justify="flex-end">
               <Grid item>
-                <Link href="/signin" variant="body2">
+                <Link href={routeConstants.SIGNIN} variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
@@ -185,4 +186,4 @@ const SignUpPage: React.FC = () =>
     );
   };
 
-export default SignUpPage;
+export default SignUp;
