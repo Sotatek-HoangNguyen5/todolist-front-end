@@ -28,7 +28,7 @@ interface FormPropsTextFieldsProps {
   onAddTodo: (todo: NewTodo) => void;
 }
 
-export default function FormPropsTextFields(props: FormPropsTextFieldsProps) {
+export default function AddTodoTextField(props: FormPropsTextFieldsProps) {
   const classes = useStyles();
 
   const [text, setText] = useState('');
@@ -44,21 +44,23 @@ export default function FormPropsTextFields(props: FormPropsTextFieldsProps) {
   };
 
   return (
-    <form className={classes.form} noValidate onSubmit={onSubmitHandle}>
-      <Grid container spacing={5}>
-        <Grid item xs={6} sm={9}>
-          <TextField
-            autoComplete="fname"
-            name="firstName"
-            variant="outlined"
-            fullWidth
-            id="firstName"
-            label="Add Todo"
-            value={text}
-            onChange={onEnteredText}
-          />
+    <div style={{ marginLeft: '20px', marginBottom: '30px' }}>
+      <form className={classes.form} noValidate onSubmit={onSubmitHandle}>
+        <Grid container spacing={5}>
+          <Grid item xs={6} sm={9}>
+            <TextField
+              autoComplete="fname"
+              name="firstName"
+              variant="outlined"
+              fullWidth
+              id="firstName"
+              label="Add Todo"
+              value={text}
+              onChange={onEnteredText}
+            />
+          </Grid>
         </Grid>
-      </Grid>
-    </form>
+      </form>
+    </div>
   );
 }

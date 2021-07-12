@@ -14,7 +14,9 @@ interface DoneDelUptButtonProps {
   onClickDeleteTodo: () => void;
 }
 
-export default function DoneDelUptButton(props: DoneDelUptButtonProps) {
+export default function DoneDelUptButton(
+  props: DoneDelUptButtonProps,
+): React.ReactElement<DoneDelUptButtonProps> {
   const classes = useStyles();
 
   return (

@@ -35,9 +35,9 @@ export default function TodoItem(props: TodoItemProps) {
   };
 
   return (
-    <div className={classes.root}>
-      <Grid container spacing={3}>
-        <Grid item xs={4}>
+    <div className={classes.root} style={{ marginLeft: '20px' }}>
+      <Grid container spacing={3} style={{ wordWrap: 'break-word' }}>
+        <Grid item xs={4} style={{ wordWrap: 'break-word' }}>
           <Card>
             <CardContent>
               <Typography color="textSecondary" gutterBottom>
@@ -46,13 +46,19 @@ export default function TodoItem(props: TodoItemProps) {
             </CardContent>
           </Card>
         </Grid>
-        <Grid item xs>
-          <TodoInfoCard todo={props.todo} />
-        </Grid>
-        <Grid item xs>
+
+        <Grid item xs style={{ wordWrap: 'break-word' }}>
           <DelUptButton onClickDeleteTodo={onClickDeleteTodo} />
         </Grid>
       </Grid>
     </div>
   );
+}
+
+{
+  /*
+        <Grid item xs style={{ wordWrap: 'break-word' }}>
+          <TodoInfoCard todo={props.todo} />
+        </Grid>
+        */
 }
